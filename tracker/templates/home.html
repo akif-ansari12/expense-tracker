@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expense Tracker</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 60%;
+            margin: auto;
+            margin-top: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        .logout {
+            background: red;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+        }
+
+        .total {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: right;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="top">
+        <h1>Expense Tracker</h1>
+
+        <form method="POST" action="/accounts/logout/">
+            {% csrf_token %}
+            <button class="btn logout">Logout</button>
+        </form>
+    </div>
+
+    <a href="/add/" class="btn">+ Add Expense</a>
+
+    <table>
+        <tr>
+            <th>Category</th>
+            <th>Amount</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for e in expenses %}
+        <tr>
+            <td>{{ e.category }}</td>
+            <td>₹{{ e.amount }}</td>
+            <td>
+                <a href="/edit/{{ e.id }}" class="btn">Edit</a>
+                <a href="/delete/{{ e.id }}" class="btn logout">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class="total">
+        Total: ₹{{ total }}
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+    <title>Add Expense</title>
+    
+</head>
+<body>
+<h2>Add Expense</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    Amount: <input type="number" name="amount" required > <br><br>
+
+    Categpry:
+    <select name="category" >
+        <option >Food</option>
+        <option >Travel</option>
+        <option >Shopping</option>
+        <option >Other</option>
+    </select><br><br>
+
+    Note: <input type="text" name="note"><br><br>
+    <button type="submit">Save</button>
+</form>
+
+
+    
+
+
+</body>
+</html>

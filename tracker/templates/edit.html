@@ -1,0 +1,23 @@
+<h2>Edit Expense</h2>
+
+<form method="POST">
+  {% csrf_token %}
+   Amount:
+   <input type="number" name="amount" value="{{exp.amount}}" /><br /><br />
+
+  Category:
+  <select name="category">
+    <option {% if exp.category == "Food" %}selected{% endif %}>Food</option>
+
+    <option {% if exp.category == "Travel" %}selected{% endif %}>Travel</option>
+
+    <option {% if exp.category == "Shopping" %}selected{% endif %}>Shopping</option>
+
+    <option {% if exp.category == "Other" %}selected{% endif %}>Other</option>
+    </select><br /><br />
+
+    Note: <input type="text" name="note" value="{{exp.note}}"><br><br>
+
+    <button type="submit">Update</button>
+
+</form>
