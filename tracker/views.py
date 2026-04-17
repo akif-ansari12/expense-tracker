@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Expense
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+
 
 
 @login_required
@@ -41,11 +43,14 @@ def add_expense(request):
         return redirect('/')
     
     return render(request, 'add.html')
+
 @login_required
 def delete_expense(request, id):
     exp = Expense.objects.get(id=id)
     exp.delete()
     return redirect('/')
+
+
 @login_required
 def edit_expense(request, id):
     exp = Expense.objects.get(id=id)
@@ -58,6 +63,23 @@ def edit_expense(request, id):
         return redirect('/')
     
     return render(request, 'edit.html', {'exp':exp})
+
+def signup(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')   # signup ke baad login page
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'registration/signup.html', {'form': form})
+
+
+
+
+
+
     
 
 
